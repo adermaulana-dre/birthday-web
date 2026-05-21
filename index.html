@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 26th Birthday, Saskia Chaerunnisa! 🌸</title>
+  
+  <!-- SEO & Meta Description -->
+  <meta name="description" content="Website peringatan ulang tahun ke-26 teruntuk Saskia Chaerunnisa tercinta dari suami. Penuh cinta, musik Baekhyun, dan kebahagiaan.">
+  <meta name="keywords" content="Saskia Chaerunnisa, Ulang Tahun, Baekhyun, EXO, Ade Maulana">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Background Particles -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ==========================================================================
+       CURTAIN COVER / LANDING PAGE COUNTDOWN
+       ========================================================================== -->
+  <div class="curtain-cover" id="curtain-cover">
+    <div class="curtain-bg-bloom"></div>
+    <div class="curtain-content">
+      <span class="curtain-subtitle">Menghitung Mundur Menuju Hari Istimewa</span>
+      <h1 class="curtain-title">Saskia Chaerunnisa Ulang Tahun Ke-26 🌸</h1>
+      
+      <!-- Live Timer -->
+      <div class="countdown-container" id="countdown-container">
+        <div class="countdown-box">
+          <span class="countdown-number" id="days">00</span>
+          <span class="countdown-label">Hari</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-number" id="hours">00</span>
+          <span class="countdown-label">Jam</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-number" id="minutes">00</span>
+          <span class="countdown-label">Menit</span>
+        </div>
+        <div class="countdown-box">
+          <span class="countdown-number" id="seconds">00</span>
+          <span class="countdown-label">Detik</span>
+        </div>
+      </div>
+      
+      <p id="countdown-message" style="font-size: 1.1rem; line-height: 1.6; max-width: 600px; color: var(--deep-rose); font-weight: 600;"></p>
+      
+      <!-- Action Unlock Button -->
+      <button class="curtain-action-btn" id="unlock-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        Buka Kejutan Ulang Tahun
+      </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */ -->
+  <header>
+    <a href="#" class="logo" id="header-logo">
+      Saskia's <span>Day</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hero">Beranda</a></li>
+      <li><a href="#letter">Surat Cinta</a></li>
+      <li><a href="#cake">Tiup Lilin</a></li>
+      <li><a href="#gallery">Baekhyun Galeri</a></li>
+      <li><a href="#player">Musik</a></li>
+      <li><a href="#wishes">Doa & Harapan</a></li>
+    </ul>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN DASHBOARD
+       ========================================================================== -->
+  <main>
+    
+    <!-- HERO / INTRO SECTION -->
+    <section id="hero" class="hero-wrapper revealed">
+      <div class="hero-text-content">
+        <span class="hero-badge">Special Celebration</span>
+        <h2 class="hero-main-title">Happy 26th Birthday,<br><span>Saskia Chaerunnisa</span>!</h2>
+        <p class="hero-desc">
+          Hari ini adalah hari istimewa untuk wanita paling luar biasa, penuh kebaikan, dan tercinta dalam hidupku. Di usiamu yang ke-26 ini, halaman kecil ini dibuat khusus sepenuhnya untuk merayakan keberadaanmu. Semoga keindahan, tawa, dan musik selalu menemanimu di setiap langkah kehidupan.
+        </p>
+        <p class="hero-desc" style="font-weight: 600; font-style: italic;">
+          Scroll ke bawah untuk melihat surat cinta dari suamimu, meniup lilin kue virtualmu, mendengarkan lantunan merdu Baekhyun kesukaanmu, dan memanjatkan doa-doa indah! ✨
+        </p>
+      </div>
+      <div class="hero-gallery-highlight">
+        <div class="polaroid-stack">
+          <div class="polaroid-frame frame-1" data-caption="Happy 26th! 🌸">
+            <div class="polaroid-img-wrapper">
+              <img src="assets/baekhyun_1.jpg" alt="Baekhyun Portrait 1">
+            </div>
+          </div>
+          <div class="polaroid-frame frame-2" data-caption="Always Shining ✨">
+            <div class="polaroid-img-wrapper">
+              <img src="assets/baekhyun_2.jpg" alt="Baekhyun Portrait 2">
+            </div>
+          </div>
+          <div class="polaroid-frame frame-3" data-caption="Saskia's Bias 🎤">
+            <div class="polaroid-img-wrapper">
+              <img src="assets/baekhyun_3.jpg" alt="Baekhyun Portrait 3">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE LOVE LETTER -->
+    <section id="letter">
+      <div class="section-header">
+        <span class="section-subtitle">A Special Note</span>
+        <h3 class="section-title">Surat Cinta Untuk Istriku</h3>
+      </div>
+      <div class="letter-container">
+        <!-- Envelope Frame -->
+        <div class="envelope-wrapper" id="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-front-left"></div>
+          <div class="envelope-front-right"></div>
+          <div class="envelope-front-bottom"></div>
+          
+          <!-- Inner letter paper -->
+          <div class="letter-paper">
+            <button class="letter-close-btn" id="letter-close" title="Tutup Surat">✖</button>
+            <div class="letter-text">
+              Untuk istriku tercinta, Saskia Chaerunnisa...<br><br>
+              Selamat ulang tahun yang ke-26, Sayang. Di hari yang indah ini, aku bersyukur atas kebersamaan kita, senyummu yang menghangatkan rumah, dan segala ketulusanmu. <br><br>
+              Semoga di umur baru ini kamu selalu dianugerahi kesehatan, kebahagiaan melimpah, dan segala impianmu terwujud. Semoga kelak kita bisa segera menonton konser Baekhyun berdua secara langsung! ❤️<br><br>
+              Aku sangat beruntung memilikimu dalam hidupku. Aku mencintaimu selamanya.
+            </div>
+            <div class="letter-footer">
+              Dengan Cinta, Suamimu Ade Maulana
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE VIRTUAL BIRTHDAY CAKE -->
+    <section id="cake">
+      <div class="section-header">
+        <span class="section-subtitle">Make a Wish</span>
+        <h3 class="section-title">Kue Ulang Tahun Virtual</h3>
+      </div>
+      <div class="glass-card cake-wrapper">
+        <div class="cake-container">
+          <!-- Dynamic Candles are appended here in script.js -->
+          <div class="candles-layer" id="candles-layer"></div>
+          
+          <!-- Cake Graphic -->
+          <div class="cake-graphic">
+            <div class="cake-frosting">
+              <div class="frosting-drip drip-1"></div>
+              <div class="frosting-drip drip-2"></div>
+              <div class="frosting-drip drip-3"></div>
+              <div class="frosting-drip drip-4"></div>
+              <div class="frosting-drip drip-5"></div>
+              <div class="frosting-drip drip-6"></div>
+              <div class="frosting-drip drip-7"></div>
+            </div>
+            <div class="cream-toppings">
+              <div class="cream-swirl"></div>
+              <div class="cream-swirl"></div>
+              <div class="cream-swirl"></div>
+              <div class="cream-swirl"></div>
+              <div class="cream-swirl"></div>
+              <div class="cream-swirl"></div>
+            </div>
+          </div>
+          <div class="plate"></div>
+        </div>
+        
+        <div class="cake-controls">
+          <h4 id="cake-title" style="font-family: var(--font-title); font-size: 1.8rem; color: var(--deep-rose); margin-bottom: 0.75rem;">Tiup Lilin Ulang Tahun Saskia!</h4>
+          <p id="cake-instructions" class="cake-instructions">Klik lilin untuk meniupnya secara perlahan.</p>
+          <button class="cake-reset-btn" id="cake-reset-btn" style="display: none;">Nyalakan Lilin Kembali</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAEKHYUN GALLERY SECTION -->
+    <section id="gallery">
+      <div class="section-header">
+        <span class="section-subtitle">Saskia's Favorite Idol</span>
+        <h3 class="section-title">Galeri Estetik Baekhyun</h3>
+      </div>
+      
+      <div class="gallery-grid">
+        <!-- Card 1 -->
+        <div class="gallery-card">
+          <div class="img-box">
+            <img src="assets/baekhyun_1.jpg" alt="Baekhyun Portrait Sweet">
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-caption">Sweet Baekhyun Candy 🍭</span>
+            <button class="gallery-heart-count" title="Sukai Foto">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              <span class="heart-val">26</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Card 2 -->
+        <div class="gallery-card">
+          <div class="img-box">
+            <img src="assets/baekhyun_2.jpg" alt="Baekhyun Cool Look">
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-caption">UN Village Vibing 🌃</span>
+            <button class="gallery-heart-count" title="Sukai Foto">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              <span class="heart-val">48</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Card 3 -->
+        <div class="gallery-card">
+          <div class="img-box">
+            <img src="assets/baekhyun_3.jpg" alt="Baekhyun Cute Expression">
+          </div>
+          <div class="gallery-info">
+            <span class="gallery-caption">Beautiful Bambi Rain 🦌</span>
+            <button class="gallery-heart-count" title="Sukai Foto">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+              <span class="heart-val">61</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL FOR GALLERY -->
+    <div class="lightbox-modal" id="lightbox-modal">
+      <button class="lightbox-close" id="lightbox-close" title="Tutup View">✖</button>
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-img" id="lightbox-img">
+        <p class="lightbox-caption" id="lightbox-caption"></p>
+      </div>
+    </div>
+
+    <!-- MUSIC PLAYER SECTION -->
+    <section id="player">
+      <div class="section-header">
+        <span class="section-subtitle">Romantic Soundtrack</span>
+        <h3 class="section-title">Baekhyun Jukebox</h3>
+      </div>
+      <div class="glass-card music-player-container">
+        <!-- Vinyl Rotating deck -->
+        <div class="vinyl-deck">
+          <div class="vinyl-outer">
+            <div class="vinyl-center-label" id="vinyl-label">
+              <div class="vinyl-center-hole"></div>
+            </div>
+          </div>
+          <!-- Tonearm needle -->
+          <svg class="tonearm" id="tonearm" viewBox="0 0 100 200">
+            <!-- Pivot Base -->
+            <circle cx="24" cy="24" r="16" fill="#a8a8a8" stroke="#ffffff" stroke-width="2" />
+            <circle cx="24" cy="24" r="8" fill="#555555" />
+            <!-- Arm rod -->
+            <path d="M 24 24 L 24 120 L 70 160 L 66 166 L 20 126 Z" fill="#cccccc" stroke="#777777" stroke-width="1" />
+            <!-- Cartridge/Stylus head -->
+            <rect x="58" y="160" width="16" height="24" rx="2" fill="#333" transform="rotate(30, 66, 172)" />
+          </svg>
+        </div>
+        
+        <!-- Player controls and details -->
+        <div class="player-details">
+          <div>
+            <span class="song-artist" id="song-artist">Baekhyun (EXO)</span>
+            <h4 class="song-title" id="song-title">Candy</h4>
+          </div>
+          
+          <!-- Custom Audio Progress Bar -->
+          <div class="progress-bar-container">
+            <div class="time-stamps">
+              <span id="current-time">0:00</span>
+              <span id="total-time">3:48</span>
+            </div>
+            <div class="progress-track" id="progress-track">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+          
+          <!-- Player Button elements -->
+          <div class="player-buttons">
+            <button class="player-btn" id="prev-btn" title="Lagu Sebelumnya">
+              <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+            </button>
+            <button class="player-btn play-pause-btn" id="play-pause-btn" title="Putar / Jeda">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="player-btn" id="next-btn" title="Lagu Selanjutnya">
+              <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6zm9-12v12h2V6z"/></svg>
+            </button>
+          </div>
+          
+          <!-- Volume control slider -->
+          <div class="volume-control">
+            <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+            <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.05" value="0.5">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WISHES WALL SECTION -->
+    <section id="wishes">
+      <div class="section-header">
+        <span class="section-subtitle">Send Your Wishes</span>
+        <h3 class="section-title">Papan Doa & Harapan</h3>
+      </div>
+      <div class="wish-wall-layout">
+        <!-- Form for new wishes -->
+        <div class="glass-card wish-form-card">
+          <h4 class="form-title">Kirim Doa Terbaikmu</h4>
+          <form id="wish-form">
+            <div class="input-group">
+              <label for="wish-sender">Namamu</label>
+              <input type="text" id="wish-sender" placeholder="Contoh: Suamimu tercinta, Ade" required autocomplete="off">
+            </div>
+            <div class="input-group">
+              <label for="wish-message">Doa & Harapan</label>
+              <textarea id="wish-message" rows="5" placeholder="Tuliskan harapan terindahmu untuk Saskia..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit-btn">Kirim Ucapan ✨</button>
+          </form>
+        </div>
+        
+        <!-- Wishes Board note sheets -->
+        <div class="wishes-board" id="wishes-board">
+          <!-- Dynamic wishes will be rendered here by script.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer>
+    <div class="footer-logo">
+      Saskia's <span>Day</span>
+    </div>
+    <p class="footer-copy">Dibuat dengan cinta yang tulus <span class="footer-heart">❤️</span> untuk Saskia Chaerunnisa.</p>
+    <p class="footer-copy" style="font-size: 0.8rem; opacity: 0.6;">© 2026 Ulang Tahun Saskia Ke-26. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
