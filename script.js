@@ -37,17 +37,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var minutesVal = document.getElementById('minutes');
   var secondsVal = document.getElementById('seconds');
 
-  // ── Audio Setup ──
-  var audioTracks = [
-    { title: "Candy",      artist: "Baekhyun (EXO)", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", cover: "assets/baekhyun_1.jpg" },
-    { title: "UN Village", artist: "Baekhyun (EXO)", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", cover: "assets/baekhyun_2.jpg" },
-    { title: "Bambi",      artist: "Baekhyun (EXO)", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", cover: "assets/baekhyun_3.jpg" }
-  ];
+  // ── Music Player Setup ──
+  // Replaced custom Audio setup with YouTube Jukebox configuration
 
-  var currentTrackIndex = 0;
-  var isPlaying = false;
-  var audio = new Audio();
-  audio.volume = 0.5;
 
   // ── Canvas Setup (guard jika canvas tidak ada) ──
   var ctx = null;
@@ -122,7 +114,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (unlockBtn) {
     unlockBtn.addEventListener('click', function () {
       if (curtainCover) curtainCover.classList.add('unlocked');
-      togglePlay(true);
+      
+      // Autoplay YouTube on unlock
+      var ytIframe = document.getElementById('youtube-iframe');
+      if (ytIframe && ytIframe.contentWindow) {
+        ytIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      }
+      
       setTimeout(function () {
         triggerConfettiRain(150);
         revealOnScroll();
@@ -305,77 +303,22 @@ document.addEventListener('DOMContentLoaded', function () {
   generateCandles();
 
   /* ==========================================================================
-     MUSIC PLAYER
+     YOUTUBE JUKEBOX LOGIC
      ========================================================================== */
-  function updatePlayerDetails() {
-    var track = audioTracks[currentTrackIndex];
-    if (songTitleEl)      songTitleEl.innerText  = track.title;
-    if (songArtistEl)     songArtistEl.innerText = track.artist;
-    audio.src = track.src;
-    if (vinylCenterLabel) vinylCenterLabel.style.backgroundImage = "url('" + track.cover + "')";
-  }
-
-  function togglePlay(forcePlay) {
-    if (forcePlay === true)  isPlaying = false;
-    if (forcePlay === false) isPlaying = true;
-
-    if (!isPlaying) {
-      audio.play().then(function () {
-        isPlaying = true;
-        if (playPauseBtn) playPauseBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
-        if (vinylCenterLabel) { vinylCenterLabel.classList.add('vinyl-spinning'); vinylCenterLabel.classList.remove('vinyl-paused'); }
-        if (tonearm) tonearm.classList.add('active');
-      }).catch(function () {});
-    } else {
-      audio.pause();
-      isPlaying = false;
-      if (playPauseBtn) playPauseBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
-      if (vinylCenterLabel) vinylCenterLabel.classList.add('vinyl-paused');
-      if (tonearm) tonearm.classList.remove('active');
+  window.switchYouTubeTrack = function(btnEl, videoId, title, artist) {
+    var ytIframe = document.getElementById('youtube-iframe');
+    if (ytIframe) {
+      ytIframe.src = "https://www.youtube.com/embed/" + videoId + "?enablejsapi=1&rel=0&modestbranding=1&autoplay=1";
     }
-  }
-
-  if (playPauseBtn) playPauseBtn.addEventListener('click', function () { togglePlay(); });
-
-  if (prevBtn) prevBtn.addEventListener('click', function () {
-    currentTrackIndex = (currentTrackIndex - 1 + audioTracks.length) % audioTracks.length;
-    updatePlayerDetails(); isPlaying = false; togglePlay(true);
-  });
-
-  if (nextBtn) nextBtn.addEventListener('click', function () {
-    currentTrackIndex = (currentTrackIndex + 1) % audioTracks.length;
-    updatePlayerDetails(); isPlaying = false; togglePlay(true);
-  });
-
-  audio.addEventListener('timeupdate', function () {
-    var cur = audio.currentTime, dur = audio.duration || 0;
-    if (progressFill) progressFill.style.width = (dur > 0 ? (cur/dur*100) : 0) + '%';
-    if (currentTimeEl) currentTimeEl.innerText = formatTime(cur);
-    if (totalTimeEl && dur > 0) totalTimeEl.innerText = formatTime(dur);
-  });
-
-  audio.addEventListener('ended', function () {
-    currentTrackIndex = (currentTrackIndex + 1) % audioTracks.length;
-    updatePlayerDetails(); isPlaying = false; togglePlay(true);
-  });
-
-  if (progressTrack) {
-    progressTrack.addEventListener('click', function (e) {
-      var rect = progressTrack.getBoundingClientRect();
-      var dur  = audio.duration || 0;
-      if (dur > 0) audio.currentTime = ((e.clientX - rect.left) / rect.width) * dur;
-    });
-  }
-
-  if (volumeSlider) volumeSlider.addEventListener('input', function (e) { audio.volume = e.target.value; });
-
-  function formatTime(secs) {
-    var m = Math.floor(secs / 60), s = Math.floor(secs % 60);
-    return m + ':' + (s < 10 ? '0' : '') + s;
-  }
-
-  // Init player AFTER functions are defined
-  updatePlayerDetails();
+    
+    if (songTitleEl) songTitleEl.innerText = title;
+    if (songArtistEl) songArtistEl.innerText = artist;
+    
+    // Update active button state
+    var allBtns = document.querySelectorAll('.youtube-track-btn');
+    allBtns.forEach(function(btn) { btn.classList.remove('active'); });
+    if (btnEl) btnEl.classList.add('active');
+  };
 
   /* ==========================================================================
      GALLERY LIGHTBOX
@@ -517,10 +460,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ==========================================================================
-     LOVE LETTER ENVELOPE
+     LOVE LETTER ENVELOPE & MODAL OVERLAY
      ========================================================================== */
-  var envelope      = document.getElementById('envelope');
-  var letterCloseBtn= document.getElementById('letter-close');
+  var envelope           = document.getElementById('envelope');
+  var letterCloseBtn     = document.getElementById('letter-close');
+  var letterModalOverlay = document.getElementById('letter-modal-overlay');
 
   if (envelope) {
     envelope.addEventListener('click', function (e) {
@@ -534,6 +478,12 @@ document.addEventListener('DOMContentLoaded', function () {
             Math.random()*10+6, (Math.random()-0.5)*4, -(Math.random()*3+1)
           ));
         }
+        // Open the modal after the envelope open animation starts/completes
+        setTimeout(function() {
+          if (letterModalOverlay) {
+            letterModalOverlay.classList.add('active');
+          }
+        }, 800);
       }
     });
   }
@@ -541,7 +491,17 @@ document.addEventListener('DOMContentLoaded', function () {
   if (letterCloseBtn) {
     letterCloseBtn.addEventListener('click', function (e) {
       e.stopPropagation();
+      if (letterModalOverlay) letterModalOverlay.classList.remove('active');
       if (envelope) envelope.classList.remove('open');
+    });
+  }
+
+  if (letterModalOverlay) {
+    letterModalOverlay.addEventListener('click', function (e) {
+      if (e.target === letterModalOverlay) {
+        letterModalOverlay.classList.remove('active');
+        if (envelope) envelope.classList.remove('open');
+      }
     });
   }
 

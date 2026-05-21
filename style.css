@@ -641,16 +641,43 @@ section.revealed {
   z-index: 1;
 }
 
-.envelope-wrapper.open .letter-paper {
-  transform: translateY(-160px) scale(1.05);
-  z-index: 5;
-  height: auto;
-  min-height: 420px;
-  box-shadow: 0 15px 45px rgba(138, 59, 75, 0.25);
+/* Letter opens as a FIXED centered modal - tidak bertabrakan dengan section lain */
+.letter-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(138, 59, 75, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 99998;
+  justify-content: center;
+  align-items: center;
+  animation: fade-in-up 0.3s ease;
 }
 
-.envelope-wrapper.open {
-  pointer-events: none; /* Allows interacting with the letter contents */
+.letter-modal-overlay.active {
+  display: flex;
+}
+
+.letter-modal-overlay .letter-paper {
+  position: relative;
+  width: 90%;
+  max-width: 560px;
+  height: auto;
+  min-height: unset;
+  max-height: 85vh;
+  overflow-y: auto;
+  top: auto;
+  left: auto;
+  z-index: 99999;
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 25px 60px rgba(138, 59, 75, 0.4);
+  animation: letter-pop-in 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes letter-pop-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
 }
 
 /* Letter Close Button */
@@ -660,26 +687,40 @@ section.revealed {
   right: 1rem;
   background: var(--soft-pink);
   border: none;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--deep-rose);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  font-size: 1rem;
+  transition: all 0.2s ease;
   pointer-events: auto;
-}
-
-.envelope-wrapper.open .letter-close-btn {
-  opacity: 1;
+  z-index: 10;
 }
 
 .letter-close-btn:hover {
-  background: var(--primary-pink);
+  background: var(--vibrant-pink);
   color: var(--pure-white);
+  transform: scale(1.1);
+}
+
+/* Envelope stays non-interactive after opening */
+.envelope-wrapper.open {
+  pointer-events: none;
+}
+
+/* Click hint on envelope */
+.envelope-click-hint {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--vibrant-pink);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  animation: float-subtle 2s ease-in-out infinite alternate;
 }
 
 /* ==========================================================================
@@ -789,7 +830,8 @@ section.revealed {
 /* Interactive Candles Layer */
 .candles-layer {
   position: absolute;
-  top: -70px;
+  bottom: 165px;
+  top: auto;
   left: 0;
   width: 100%;
   height: 70px;
@@ -1057,94 +1099,68 @@ section.revealed {
   align-items: center;
 }
 
-/* Left Side: Spinning Vinyl Disk */
-.vinyl-deck {
+/* YouTube Track Buttons Styling */
+.youtube-track-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--deep-rose);
+  background: var(--soft-pink);
+  border: 1px solid rgba(255, 183, 197, 0.4);
+  padding: 0.6rem 1.25rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.youtube-track-btn:hover {
+  background: var(--vibrant-pink);
+  color: var(--pure-white);
+  border-color: var(--vibrant-pink);
+  transform: translateY(-2px);
+}
+
+.youtube-track-btn.active {
+  background: linear-gradient(135deg, var(--vibrant-pink) 0%, var(--primary-pink) 100%);
+  color: var(--pure-white);
+  border: none;
+  box-shadow: 0 4px 12px rgba(255, 101, 132, 0.3);
+}
+
+/* Left Side: YouTube Embed Wrapper */
+.youtube-player-wrapper {
+  width: 100%;
+}
+
+.youtube-iframe-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(138, 59, 75, 0.15);
+  border: 1px solid var(--glass-border);
+  background: #000;
+}
+
+.youtube-iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* YouTube Tracks Grid for Buttons */
+.youtube-tracks-grid {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
 }
 
-.vinyl-outer {
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, #333 30%, #111 60%, #000 100%);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,255,255,0.1);
-  position: relative;
-}
-
-/* Vinyl groves effect */
-.vinyl-outer::after {
-  content: '';
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow: 
-    inset 0 0 20px rgba(0,0,0,0.8),
-    0 0 0 10px rgba(0,0,0,0.9),
-    0 0 0 20px rgba(0,0,0,0.85);
-}
-
-.vinyl-center-label {
-  width: 110px;
-  height: 110px;
-  background-color: var(--soft-pink);
-  border-radius: 50%;
-  background-size: cover;
-  background-position: center;
-  border: 4px solid var(--pearl-white);
-  z-index: 2;
-  position: relative;
-}
-
-.vinyl-center-hole {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  background-color: var(--pearl-white);
-  border-radius: 50%;
-  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-  z-index: 3;
-}
-
-/* Spinning Animation Class */
-.vinyl-spinning {
-  animation: vinyl-rotate 8s linear infinite;
-}
-
-.vinyl-paused {
-  animation-play-state: paused;
-}
-
-/* Tonearm */
-.tonearm {
-  position: absolute;
-  top: -20px;
-  right: 10px;
-  width: 80px;
-  height: 140px;
-  transform-origin: 24px 24px;
-  transform: rotate(-30deg);
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-  z-index: 10;
-  pointer-events: none;
-}
-
-.tonearm.active {
-  transform: rotate(5deg);
-}
 
 /* Right Side: Player Controls */
 .player-details {
@@ -1654,16 +1670,9 @@ footer {
     text-align: center;
   }
   
-  .vinyl-deck {
+  /* Left Side: YouTube Embed goes first */
+  .youtube-player-wrapper {
     order: -1;
-  }
-  
-  .player-buttons {
-    justify-content: center;
-  }
-  
-  .volume-control {
-    justify-content: center;
   }
   
   .wish-wall-layout {
@@ -1705,49 +1714,22 @@ footer {
   }
   
   .envelope-wrapper {
-    width: 100%;
-    max-width: 420px;
-    height: 290px;
+    transform: scale(0.65);
+    transform-origin: top center;
+    margin-bottom: -120px;
   }
   
-  .envelope-flap {
-    border-left-width: 210px;
-    border-right-width: 210px;
-    border-top-width: 150px;
+  .envelope-wrapper:hover {
+    transform: scale(0.65) translateY(-10px);
   }
   
-  .envelope-front-left {
-    border-left-width: 210px;
-    border-top-width: 145px;
-    border-bottom-width: 145px;
-  }
-  
-  .envelope-front-right {
-    border-right-width: 210px;
-    border-top-width: 145px;
-    border-bottom-width: 145px;
-  }
-  
-  .envelope-front-bottom {
-    border-left-width: 210px;
-    border-right-width: 210px;
-    border-bottom-width: 145px;
-  }
-  
-  .letter-paper {
-    width: calc(100% - 30px);
-    left: 15px;
-    height: 260px;
+  .letter-modal-overlay .letter-paper {
     padding: 1.5rem 1.5rem;
+    width: 95%;
   }
   
   .letter-text {
-    font-size: 1.6rem;
-  }
-  
-  .envelope-wrapper.open .letter-paper {
-    transform: translateY(-130px) scale(1.02);
-    min-height: 380px;
+    font-size: 1.5rem;
   }
   
   .wish-sticky {
