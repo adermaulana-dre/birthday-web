@@ -13,6 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const unlockBtn = document.getElementById('unlock-btn');
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
+
+  // Music Player DOM Elements
+  const songTitleEl = document.getElementById('song-title');
+  const songArtistEl = document.getElementById('song-artist');
+  const playPauseBtn = document.getElementById('play-pause-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const progressFill = document.getElementById('progress-fill');
+  const progressTrack = document.getElementById('progress-track');
+  const currentTimeEl = document.getElementById('current-time');
+  const totalTimeEl = document.getElementById('total-time');
+  const volumeSlider = document.getElementById('volume-slider');
+  const vinylCenterLabel = document.getElementById('vinyl-label');
+  const tonearm = document.getElementById('tonearm');
   
   // Audio Player Data & State
   const audioTracks = [
@@ -330,18 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ==========================================================================
      INTERACTIVE MUSIC PLAYER LOGIC (BAEKHYUN SPECIAL)
      ========================================================================== */
-  const songTitleEl = document.getElementById('song-title');
-  const songArtistEl = document.getElementById('song-artist');
-  const playPauseBtn = document.getElementById('play-pause-btn');
-  const prevBtn = document.getElementById('prev-btn');
-  const nextBtn = document.getElementById('next-btn');
-  const progressFill = document.getElementById('progress-fill');
-  const progressTrack = document.getElementById('progress-track');
-  const currentTimeEl = document.getElementById('current-time');
-  const totalTimeEl = document.getElementById('total-time');
-  const volumeSlider = document.getElementById('volume-slider');
-  const vinylCenterLabel = document.getElementById('vinyl-label');
-  const tonearm = document.getElementById('tonearm');
 
   function updatePlayerDetails() {
     const track = audioTracks[currentTrackIndex];
